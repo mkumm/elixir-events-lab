@@ -1,21 +1,26 @@
-# Vend
+# Elixir Events Lab
 
-**TODO: Add description**
+Starter code for the [Elixir Events lab](https://mkumm.com/labs/elixir-events/): build an event-sourced vending machine in about 45 minutes.
 
-## Installation
+## Setup
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `vend` to your list of dependencies in `mix.exs`:
+Requires Elixir 1.15 or newer. No database server needed; it uses SQLite.
 
-```elixir
-def deps do
-  [
-    {:vend, "~> 0.1.0"}
-  ]
-end
+```sh
+mix setup      # fetch deps, create the database, seed a week of history
+iex -S mix
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/vend>.
+`mix reset` wipes the database and reseeds it.
 
+## What is here
+
+| File | What it does |
+| --- | --- |
+| `lib/vend/events.ex` | The five event structs |
+| `lib/vend/event_store.ex` | `append/2` and `read/1` over a single SQLite table |
+| `lib/vend/catalog.ex` | Six slots with names and prices |
+| `lib/vend/application.ex` | Supervision tree: Repo, Registry, and (later) your machine |
+| `priv/repo/seeds.exs` | One week of history for the `"lobby"` machine |
+
+You write `lib/vend/vending.ex`, `lib/vend/machine.ex`, and `lib/vend/reports.ex` during the lab. The `solution` branch has finished versions.
